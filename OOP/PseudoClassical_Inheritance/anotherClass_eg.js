@@ -49,7 +49,10 @@ console.log(acc1.pin); // in real world scenario, pin shouldn't be accessible
 
 
 
-
+/*
+  the example above justifies the essense of encapsulation
+  ...having public and private fields
+*/
 
 
 
