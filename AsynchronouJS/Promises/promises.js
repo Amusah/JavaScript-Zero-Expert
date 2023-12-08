@@ -88,8 +88,6 @@ const fetchAndParseData = function(url, errMsg = 'Something went wrong'){
   })
 }
 
-const renderData = function(){}
-
 const getCountryAndNeighbour = country => {
   // first AJAX call
   fetchAndParseData(`https://restcountries.com/v3.1/name/${country}`, 'Country not found')
