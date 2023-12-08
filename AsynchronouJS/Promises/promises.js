@@ -42,8 +42,18 @@ const getCountryAndNeighbour = country => {
   // first AJAX call
   fetch(`https://restcountries.com/v3.1/name/${country}`) // returns a promise
   .then(response => response.json())
-  .then(data => renderCountry(data[0]));
+  .then(data => {
+    console.log(data);
+    renderCountry(data[0]);
+
+    let neighbour =  data[0].borders?.[0];
+    if (!neighbour) return;
+    // second AJAX call
+    return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`)
+  })
+  .then(response => response.json())
+  .then(data => renderCountry(data[0], 'neighbour'));
 }
 
-getCountryAndNeighbour('Italy');
+getCountryAndNeighbour('Canada');
 // getCountryData('usa');
