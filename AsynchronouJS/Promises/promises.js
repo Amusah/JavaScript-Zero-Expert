@@ -3,6 +3,11 @@
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
+const renderError = msg => {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+  // countriesContainer.style.opacity = 1;
+}
+
 /*******************************PROMISES*********************************/
 // http request using the fetch api
 
@@ -22,7 +27,7 @@ const renderCountry = (data, className = '') => {
     // <p class="country__row"><span>💰</span>${data['currencies'][Object.keys(data.currencies)[0]][Object.keys(data['currencies'][Object.keys(data.currencies)[0]])[0]]}</p>
 
     countriesContainer.insertAdjacentHTML('beforeend', html);
-    countriesContainer.style.opacity = 1;
+    // countriesContainer.style.opacity = 1;
 }
 
 // const getCountryAndNeighbour = country => {
@@ -52,8 +57,16 @@ const getCountryAndNeighbour = country => {
     return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`)
   })
   .then(response => response.json())
-  .then(data => renderCountry(data[0], 'neighbour'));
+  .then(data => renderCountry(data[0], 'neighbour'))
+  .catch(err => {
+    renderError(`Something went wrong ✴️✴️ ${err.message}. try again`)
+  })
+  .finally(() => {
+    countriesContainer.style.opacity = 1;
+  });
 }
 
-getCountryAndNeighbour('Canada');
+//btn.addEventListener('click', function(){
+  getCountryAndNeighbour('Canada');
+//})
 // getCountryData('usa');
