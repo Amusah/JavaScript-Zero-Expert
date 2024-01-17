@@ -13,6 +13,7 @@ import * as shoppingCart from './shoppingCart.js';
 shoppingCart.addToCart('MacBook M2', 2);
 console.log(shoppingCart.totalPrice);
 
+// this imports all named exports as a single object
 */
 
 
