@@ -29,3 +29,21 @@ console.log(stateDeepClone);
 if(module.hot){
   module.hot.accept();
 }
+
+class Person{
+  greeting = 'Hey';
+  constructor(name){
+    this.name = name;
+    console.log(`${this.greeting}, ${this.name}`);
+  }
+}
+const henry = new Person('Henry')
+
+console.log(cart.find(el => el.quantity >= 2));
+Promise.resolve('THIS').then(el => console.log(el))
+
+// Polyfilling
+import 'core-js/stable';
+
+// Polyfilling async functions
+import 'regenerator-runtime/runtime';
