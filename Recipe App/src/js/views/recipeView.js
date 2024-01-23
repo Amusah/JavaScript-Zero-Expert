@@ -17,17 +17,21 @@ class RecipeView {
     this.#parentElement.replaceChildren();
   }
 
+  addHandlerRender(handler){ // implementing publisher subscriber pattern
+    ['hashchange', 'load'].forEach(e => window.addEventListener(e, handler));
+  }
+
   renderSpinner(){
-  const markup = `
-    <div class="spinner">
-      <svg>
-        <use href="${icons}#icon-loader"></use>
-      </svg>
-    </div>
-  `;
-  this.#clear();
-  this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-}
+    const markup = `
+      <div class="spinner">
+        <svg>
+          <use href="${icons}#icon-loader"></use>
+        </svg>
+      </div>
+    `;
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
 
   #generateMarkup(){
     return `

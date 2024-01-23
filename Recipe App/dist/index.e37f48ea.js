@@ -580,8 +580,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"aenu9":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _webImmediateJs = require("core-js/modules/web.immediate.js"); // window.addEventListener('hashchange', controlRecipes);
- // window.addEventListener('load', controlRecipes);
+var _webImmediateJs = require("core-js/modules/web.immediate.js");
 var _modelJs = require("./model.js");
 var _recipeViewJs = require("./views/recipeView.js");
 var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
@@ -602,12 +601,13 @@ const controlRecipes = async function() {
     // alert(error);
     }
 };
-// controlRecipes();
-let eventArr = [
-    "hashchange",
-    "load"
-];
-eventArr.forEach((e)=>window.addEventListener(e, controlRecipes));
+/****** implementing publisher subscriber pattern ******/ // const init = function(){
+//   recipeView.addHandlerRender(controlRecipes);
+// };
+// init();
+(function init() {
+    (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
+})();
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","core-js/modules/web.immediate.js":"49tUX","regenerator-runtime/runtime":"dXNgZ","./model.js":"Y4A21","./views/recipeView.js":"l60JC"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -2538,14 +2538,20 @@ class RecipeView {
     #clear() {
         this.#parentElement.replaceChildren();
     }
+    addHandlerRender(handler) {
+        [
+            "hashchange",
+            "load"
+        ].forEach((e)=>window.addEventListener(e, handler));
+    }
     renderSpinner() {
         const markup = `
-    <div class="spinner">
-      <svg>
-        <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
-      </svg>
-    </div>
-  `;
+      <div class="spinner">
+        <svg>
+          <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
+        </svg>
+      </div>
+    `;
         this.#clear();
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     }

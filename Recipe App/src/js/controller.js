@@ -27,10 +27,14 @@ const controlRecipes = async function(){
   } catch (error) {
     // alert(error);
   }
-}
-// controlRecipes();
+};
 
-let eventArr = ['hashchange', 'load']
-eventArr.forEach(e => window.addEventListener(e, controlRecipes));
-// window.addEventListener('hashchange', controlRecipes);
-// window.addEventListener('load', controlRecipes);
+/****** implementing publisher subscriber pattern ******/
+// const init = function(){
+//   recipeView.addHandlerRender(controlRecipes);
+// };
+// init();
+
+(function init(){
+  recipeView.addHandlerRender(controlRecipes);
+})()
