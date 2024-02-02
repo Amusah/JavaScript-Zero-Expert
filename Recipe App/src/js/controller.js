@@ -1,4 +1,5 @@
 import * as model from './model.js';
+import { MODAL_CLOSE_SEC } from './config.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
@@ -92,10 +93,31 @@ const controlBookmarks = function(){
   bookmarksView.render(model.state.bookmarks);
 };
 
-const controlUploadRecipe = function(newRecipe){
-  console.log(newRecipe);
+const controlUploadRecipe = async function(newRecipe){
+  try {
 
-  // Upload new recipe data
+    // Show loading spinner
+    addRecipeView.renderSpinner();
+
+    
+    // Upload new recipe data
+    await model.uploadRecipe(newRecipe);
+    console.log(model.state.recipe);
+
+    // Render recipe
+    recipeView.render(model.state.recipe);
+
+    // Render success message
+    addRecipeView.renderSuccess();
+
+    // close form window
+    setTimeout(function(){
+      addRecipeView._toggleWindow()
+    }, MODAL_CLOSE_SEC * 1000);
+  } catch (err) {
+    console.error(err);
+    addRecipeView.renderError(err.message);
+  }
 };
 
 /****** implementing publisher subscriber pattern ******/

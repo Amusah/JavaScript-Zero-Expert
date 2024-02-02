@@ -5,6 +5,7 @@ import icons from 'url:../../img/icons.svg' // parcel v2
 
 class AddRecipeView extends View{
   _parentElement = document.querySelector('.upload');
+  _successMessage = 'Recipe uploaded successfully :)';
 
   _window = document.querySelector('.add-recipe-window');
   _overlay = document.querySelector('.overlay');
